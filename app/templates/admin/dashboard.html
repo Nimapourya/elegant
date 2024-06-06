@@ -1,0 +1,35 @@
+{% extends 'layouts/admin-layout.html' %}
+{% block content %}
+    <h2 class="text-center">Dashboard Page</h2>
+    <div class="table-container">
+        <table class="table is-bordered">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 100px">Number</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Category</th>
+                <th scope="col">Description</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Update At</th>
+                <th scope="col">Replies</th>
+                <th scope="col">Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for complaint in complaints %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ complaint.author.fullname }}</td>
+                    <td>{{ complaint.category.name }}</td>
+                    <td>{{ complaint.description }}</td>
+                    <td>{{ complaint.created_at.strftime('%Y/%m/%d') }}</td>
+                    <td>{{ complaint.updated_at.strftime('%Y/%m/%d') }}</td>
+                    <td><span class="badge badge-{{ 'primary' if complaint.reply else 'light' }}">{{ 'yes' if complaint.reply else 'no' }}</span></td>
+                    <td><a href="{{ url_for('reply', complaint_id=complaint.id) }}" class="button is-small is-info">Reply</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layouts/admin-layout.html' %}
+{% block content %}
+    {% if complaint.reply %}
+        <h4>Replies:</h4>
+        <div class="alert alert-success">{{ complaint.reply.description }}</div>
+        <hr class="m-4">
+    {% endif %}
+    <h4>Original complaint</h4>
+    <form action="{{ url_for("reply", complaint_id=complaint.id) }}" method="post">
+        <div class="form-group">
+            <label class="col-md-12">Complaint Text</label>
+            <div class="col-md-12"><textarea rows="5" class="form-control form-control-line"
+                                             disabled>{{ complaint.description }}</textarea>
+            </div>
+        </div>
+
+        {% if current_user.role == 'admin' %}
+
+            <div class="form-group">
+                <label class="col-md-12">Reply Text</label>
+                <div class="col-md-12"><textarea rows="5" class="form-control form-control-line"
+                                                 name="description"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn-success">Send Reply</button>
+                </div>
+            </div>
+        {% endif %}
+    </form>
+{% endblock %}

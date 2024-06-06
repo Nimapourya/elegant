@@ -1,0 +1,103 @@
+{% extends 'layouts/admin-layout.html' %}
+{% block content %}
+    <h2 class="text-center">Profile Page</h2>
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-4 col-xlg-3 col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <center class="m-t-30"><img
+                            src="{{ url_for('file_uploads', name=profile.avatar if profile.avatar else '233') }}"
+                            alt="No Image" class="img-circle" width="150"/>
+                        <h4 class="card-title m-t-10"></h4>
+                        <h6 class="card-subtitle"></h6>
+                    </center>
+                </div>
+                <form action="{{ url_for("upload_profile") }}" method="post" enctype="multipart/form-data"
+                      class="form-horizontal form-material">
+                    <div class="form-group">
+                        <label class="input is-link">User Avatar</label>
+                        <div class="col-md-12">
+                            <input type="file" name="avatar"
+                                   class="form-control form-control-line">
+                        </div>
+                    </div>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="notification mb-4 {{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn-success">Upload File</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <!-- Tab panes -->
+                <div class="card-body">
+
+                    <form action="{{ url_for("profile") }}" method="post"
+                          class="form-horizontal form-material">
+                        <div class="form-group">
+                            <label class="input is-link">Full Name</label>
+                            <div class="col-md-12">
+                                <input type="text" name="fullname" value="{{ profile.fullname }}"
+                                       class="form-control form-control-line">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="example-email" class="input is-link">Email</label>
+                            <div class="col-md-12">
+                                <input type="email" placeholder="{{ profile.email }}"
+                                       class="form-control form-control-line" name="email" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="input is-link">Password</label>
+                            <div class="col-md-12">
+                                <input type="password" class="form-control form-control-line" name="password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="input is-link">Phone Number</label>
+                            <div class="col-md-12">
+                                <input type="text" value="{{ profile.phone }}" name="phone"
+                                       class="form-control form-control-line">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12">About</label>
+                            <div class="col-md-12">
+                                <textarea rows="5" class="form-control form-control-line"
+                                          name="about">{{ profile.about }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+{% endblock %}

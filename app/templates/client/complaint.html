@@ -1,0 +1,28 @@
+{% extends 'layouts/client_layout.html' %}
+{% block content %}
+        <div class="form-group">
+            <label class="col-md-12">Enter Your Complaint Text</label>
+            <div class="col-md-12"><textarea rows="5" class="form-control form-control-line" name="description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group field">
+            <label class="col-md-12">Select Category</label>
+            <div class="col-md-12">
+                <select name="category_id" id="category">
+                    <option value="" >Select One</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn-success">Send</button>
+            </div>
+        </div>
+
+    </form>
+{% endblock %}
