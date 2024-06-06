@@ -224,7 +224,7 @@ def create_app(config=config.Config):
         return send_from_directory(app.config["UPLOAD_FOLDER"], name)
 
     @app.errorhandler(404)
-    def page_not_found():
+    def page_not_found(error):
         return render_template('admin/404.html')
 
     return app
